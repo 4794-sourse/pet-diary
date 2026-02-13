@@ -1,0 +1,7 @@
+<view class="container">
+  <view class="card">
+    <input placeholder="宠物 ID" bindinput="onPetIdInput" />
+    <textarea placeholder="记录内容" bindinput="onContentInput"></textarea>
+    <button class="primary-btn" type="primary" bindtap="onSubmit">发布记录</button>
+  </view>
+</view>

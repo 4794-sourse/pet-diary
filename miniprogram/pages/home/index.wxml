@@ -1,0 +1,11 @@
+<view class="container">
+  <view class="card">
+    <view>今日提醒（预览）</view>
+    <view wx:if="{{!reminders.length}}">暂无提醒</view>
+    <view wx:for="{{reminders}}" wx:key="_id">{{item.title}} - {{item.next_due_at}}</view>
+  </view>
+
+  <button class="primary-btn" type="primary" bindtap="goToPetEdit">创建宠物档案</button>
+  <button class="primary-btn" bindtap="goToPostEdit">发布日常记录</button>
+  <button class="primary-btn" bindtap="goToReminderList">查看提醒</button>
+</view>

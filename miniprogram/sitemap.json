@@ -1,0 +1,7 @@
+{
+  "desc": "宠物日记 sitemap",
+  "rules": [{
+    "action": "allow",
+    "page": "*"
+  }]
+}

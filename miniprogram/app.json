@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/pet-edit/index",
+    "pages/post-edit/index",
+    "pages/reminder-list/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "宠物日记",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "backgroundTextStyle": "light"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
