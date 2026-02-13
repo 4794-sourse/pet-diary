@@ -34,12 +34,21 @@ exports.main = async (event) => {
   }
 
   if (action === 'delete') {
-    await db.collection('posts').doc(payload.id).update({
+    const result = await db.collection('posts').where({
+      _id: payload.id,
+      owner_openid: openid,
+      deleted: false,
+    }).update({
       data: {
         deleted: true,
         updated_at: new Date(),
       },
     });
+
+    if (!result.stats || result.stats.updated === 0) {
+      throw new Error('post not found or permission denied');
+    }
+
     return { success: true };
   }
 

@@ -46,26 +46,44 @@ exports.main = async (event) => {
   }
 
   if (action === 'complete') {
-    const reminder = await db.collection('reminders').doc(payload.reminderId).get();
-    const nextDueAt = calcNextDue(reminder.data.next_due_at, reminder.data.rule);
+    const reminderResult = await db.collection('reminders').where({
+      _id: payload.reminderId,
+      owner_openid: openid,
+      status: 'active',
+    }).get();
+
+    if (!reminderResult.data || reminderResult.data.length === 0) {
+      throw new Error('reminder not found or permission denied');
+    }
+
+    const reminder = reminderResult.data[0];
+    const nextDueAt = calcNextDue(reminder.next_due_at, reminder.rule);
 
     await db.collection('reminder_logs').add({
       data: {
         reminder_id: payload.reminderId,
         owner_openid: openid,
-        pet_id: reminder.data.pet_id,
+        pet_id: reminder.pet_id,
         done_at: new Date(),
         comment: payload.comment || '',
       },
     });
 
-    await db.collection('reminders').doc(payload.reminderId).update({
+    const updateResult = await db.collection('reminders').where({
+      _id: payload.reminderId,
+      owner_openid: openid,
+      status: 'active',
+    }).update({
       data: {
         last_done_at: new Date(),
         next_due_at: nextDueAt,
         updated_at: new Date(),
       },
     });
+
+    if (!updateResult.stats || updateResult.stats.updated === 0) {
+      throw new Error('reminder not found or permission denied');
+    }
 
     return { success: true };
   }
