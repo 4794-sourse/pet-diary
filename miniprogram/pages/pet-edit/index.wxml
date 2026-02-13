@@ -1,0 +1,7 @@
+<view class="container">
+  <view class="card">
+    <input placeholder="宠物昵称" bindinput="onNameInput" />
+    <input placeholder="种类（cat/dog）" bindinput="onSpeciesInput" />
+    <button class="primary-btn" type="primary" bindtap="onSubmit">保存宠物档案</button>
+  </view>
+</view>

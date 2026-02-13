@@ -1,0 +1,15 @@
+.container {
+  padding: 24rpx;
+}
+
+.card {
+  margin-bottom: 16rpx;
+  padding: 20rpx;
+  border-radius: 16rpx;
+  background: #ffffff;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.primary-btn {
+  margin-top: 12rpx;
+}

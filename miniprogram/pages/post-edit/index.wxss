@@ -1,0 +1,5 @@
+@import "../../app.wxss";
+textarea {
+  min-height: 200rpx;
+  margin-top: 12rpx;
+}

@@ -1,0 +1,8 @@
+<view class="container">
+  <view class="card" wx:if="{{!reminders.length}}">暂无提醒</view>
+  <view class="card" wx:for="{{reminders}}" wx:key="_id">
+    <view>{{item.title}}</view>
+    <view>到期：{{item.next_due_at}}</view>
+    <button size="mini" data-id="{{item._id}}" bindtap="onComplete">完成</button>
+  </view>
+</view>
