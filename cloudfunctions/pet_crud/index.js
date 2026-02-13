@@ -32,12 +32,29 @@ exports.main = async (event) => {
 
   if (action === 'update') {
     const { id, ...rest } = payload;
-    await db.collection('pets').doc(id).update({
+    const allowedFields = ['name', 'species', 'breed', 'birthday', 'archived'];
+    const updates = allowedFields.reduce((acc, field) => {
+      if (rest[field] !== undefined) {
+        acc[field] = rest[field];
+      }
+      return acc;
+    }, {});
+
+    const result = await db.collection('pets').where({
+      _id: id,
+      owner_openid: openid,
+      archived: false,
+    }).update({
       data: {
-        ...rest,
+        ...updates,
         updated_at: new Date(),
       },
     });
+
+    if (!result.stats || result.stats.updated === 0) {
+      throw new Error('pet not found or permission denied');
+    }
+
     return { success: true };
   }
 
